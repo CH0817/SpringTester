@@ -17,8 +17,7 @@ import java.nio.file.Files;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,11 +38,24 @@ public class MockTester {
      */
     @Test
     public void testControllerReturnStaticHtml() throws Exception {
-        File login = new ClassPathResource("templates/index.html").getFile();
+        File login = new ClassPathResource("templates/static.html").getFile();
         String html = new String(Files.readAllBytes(login.toPath()));
-        this.mockMvc.perform(get("/"))//
+        this.mockMvc.perform(get("/static"))//
                 .andExpect(status().isOk())//
                 .andExpect(content().string(html))//
+                .andDo(print());
+    }
+
+    /**
+     * Test Thymeleaf HTML
+     *
+     * @throws Exception for MockMvc.perform()
+     */
+    @Test
+    public void testThymeleaf() throws Exception {
+        this.mockMvc.perform(get("/").param("name", "rex"))//
+                .andExpect(status().isOk())//
+                .andExpect(view().name("index"))//
                 .andDo(print());
     }
 
