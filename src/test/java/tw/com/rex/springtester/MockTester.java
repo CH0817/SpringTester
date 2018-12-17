@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import tw.com.rex.springtester.dao.UserDao;
 import tw.com.rex.springtester.service.BaseService;
 
 import java.io.File;
@@ -28,6 +29,8 @@ public class MockTester {
     private MockMvc mockMvc;
     @Autowired
     private BaseService baseService;
+    @Autowired
+    private UserDao userDao;
 
     /**
      * test Controller return static HTML
@@ -47,6 +50,15 @@ public class MockTester {
     @Test
     public void testBaseServiceServiceImpl() {
         long count = baseService.count();
+        Assert.assertEquals("expected count is 1 but actual is " + count, 1, count);
+    }
+
+    /**
+     * test UserDao
+     */
+    @Test
+    public void testUserDao() {
+        long count = userDao.count();
         Assert.assertEquals("expected count is 1 but actual is " + count, 1, count);
     }
 
