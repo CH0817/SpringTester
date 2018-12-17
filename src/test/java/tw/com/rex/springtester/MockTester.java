@@ -47,8 +47,11 @@ public class MockTester {
                 .andDo(print());
     }
 
+    /**
+     * test BaseService
+     */
     @Test
-    public void testBaseServiceServiceImpl() {
+    public void testBaseServiceImpl() {
         long count = baseService.count();
         Assert.assertEquals("expected count is 1 but actual is " + count, 1, count);
     }
