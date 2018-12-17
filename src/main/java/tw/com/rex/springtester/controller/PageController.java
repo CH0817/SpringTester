@@ -19,7 +19,7 @@ public class PageController {
     @RequestMapping({"/", "/home"})
     public String home() {
         System.out.println("PageController.home()");
-        baseService.base();
+        baseService.count();
         return "index";
     }
 

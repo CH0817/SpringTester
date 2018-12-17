@@ -16,8 +16,8 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public void base() {
-        System.out.println("BaseService.base()");
-        System.out.println("count: " + userDao.count());
+    public long count() {
+        System.out.println("BaseService.count()");
+        return userDao.count();
     }
 }

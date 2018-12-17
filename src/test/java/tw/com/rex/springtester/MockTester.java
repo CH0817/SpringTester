@@ -1,5 +1,6 @@
 package tw.com.rex.springtester;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import tw.com.rex.springtester.service.BaseService;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -24,6 +26,8 @@ public class MockTester {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private BaseService baseService;
 
     /**
      * test Controller return static HTML
@@ -38,6 +42,12 @@ public class MockTester {
                 .andExpect(status().isOk())//
                 .andExpect(content().string(html))//
                 .andDo(print());
+    }
+
+    @Test
+    public void testBaseServiceServiceImpl() {
+        long count = baseService.count();
+        Assert.assertEquals("expected count is 1 but actual is " + count, 1, count);
     }
 
 }
